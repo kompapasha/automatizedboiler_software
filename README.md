@@ -1,0 +1,3 @@
+Short Discription:
+
+The software employs a client-server architecture. The server component runs on an ESP-32 controller and handles Wi-Fi module initialization, time synchronization via NTP, WebSocket communication, HTTP request processing, and boiler control based on a set schedule. The client component consists of a web interface implemented as a Single Page Application with three main tabs: Schedule, Statistics, and Settings. The interface utilizes an event-driven model to respond to user actions by generating requests in JSON format. Data exchange between the client and server occurs over a wireless connection using the controller's Wi-Fi module.
