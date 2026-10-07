@@ -1,0 +1,381 @@
+body {
+    font-size: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text);
+    background-color: var(--bg-color);
+}
+.topnav {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--nav-bg-color);
+    padding: 1.5em;
+}
+.topnav h1 {
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: bolder;
+    font-size: 2em;
+    color: var(--color-header);
+}
+.main-section {
+    background-color: var(--main-elem-bg-color);
+    width: min(calc(100% - 4em), 800px);
+    height: 500px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2), 0px 0px 20px rgba(0, 0, 0, 0.19);
+
+    display: flex;
+    flex-direction: column;
+}
+.main-section-tabs {
+    background-color: rgb(160, 160, 160);
+    display: flex;
+}
+.main-section-tabs .tablinks:last-child {
+    margin-left: auto;
+}
+.main-section-tabs button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+.main-section-tabs button:hover {
+    background-color: rgb(141, 141, 141);
+}
+.main-section-tabs button.active {
+    background-color: gray;
+}
+.schedule-section-content {
+    height: 100%;
+    display: flex;                  /**/
+    flex-direction: column;         /**/
+    /*overflow: auto;*/
+}
+.tabcontent {
+    display: none;
+    padding: 12px 12px;
+    flex-grow: 1;
+    /*overflow: hidden*/
+}
+
+
+/*-----------------------------------------------------
+------------------------SCHEDULE-----------------------
+-----------------------------------------------------*/
+/*
+.schedule-section-content h3, .settings-section-content h3 {
+    padding: .5em 0em;
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+*/
+.schedule-section-content-button-group {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-block: .7em .5em;
+}
+.custom-buttons {
+    width: 150px;
+    padding-block: .65em;
+    font-size: 16px;
+    font-weight: bolder;
+    outline: none;
+    border-radius: 8px;
+    transform: translateY(-8px);
+    box-shadow: 0px 6px 0px black;
+    transition: .2s;
+}
+.custom-buttons:hover {
+    box-shadow: 0px 6px 0px black, 0px 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+.custom-buttons:active {
+    transform: translateY(-4px);
+    box-shadow: 0px 2px 0px black;
+}
+.customed-btn-lime {
+    background-color: lime;
+}
+.customed-btn-tomato {
+    background-color: tomato;
+}
+.customed-btn-lightblue {
+    background-color: lightblue;
+}
+
+/*--------------time---------------*/
+.schedule-current-time {
+    margin-left: auto;
+    padding-inline: 1em;
+    display: flex;
+    align-items: center;
+}
+.time-hours, .time-minutes {
+    font-size: 1.75em;
+    padding-inline: .2em;
+    color: var(--color-text);
+}
+
+
+.fullwidthed {
+    width: 100%;
+}
+.schedule-section-content-status {
+    margin-block: .7em;
+    font-size: 1.25em;
+}
+.status-on {
+    color: green;
+    font-weight: bold;
+}
+.status-off {
+    color: red;
+    font-weight: bold;
+}
+.schedule-section-content-dates-group {
+    flex-grow: 1;
+    flex-basis: 100px;
+    overflow: auto;
+}
+.dates-group-wrapper > * {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1em;
+    border-bottom: 1px solid gray;
+}
+.dates-group-wrapper > * > * {
+    padding-inline: 1em;
+}
+
+
+.switch {
+    display: inline-block;
+    height: var(--switcher-height);
+    aspect-ratio: 2;
+    border-radius: calc(var(--switcher-height) / 2);
+    background-color: gray;
+    position: relative;
+    transition: .6s;
+}
+.switch .switch-button {
+    height: calc(var(--switcher-height) - 4px);
+    aspect-ratio: 1;
+    display: inline-block;
+    background-color: aliceblue;
+    border-radius: 50%;
+    transition: .6s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2px;
+}
+.switch > input:checked ~ .switch-button {
+    left: calc(100% - 2px);
+    transform: translate(-100%, -50%);
+}
+.switch:has(input:checked) {
+    background-color: rgb(100, 235, 100);
+}
+
+
+.date-setted-content-time {
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 300px;
+    align-items: center;
+    padding-inline: 1em;
+}
+.date-setted-content-time > * {
+    font-size: 2.2em;   
+}
+
+.time-before, .time-after {
+    display: flex;
+    align-items: center;
+}
+.time-dots {
+    font-size: 1.7em;
+}
+
+
+.date-setted-delete-button {
+    
+}
+.date-setted-delete-button button{
+    padding: 1em;
+    background-color: transparent;
+}
+
+
+/*-----------------------------------------------------
+-----------------------STATISTICS----------------------
+-----------------------------------------------------*/
+.statistics-section-content {
+    display: flex;
+    height: 100%;
+    gap: .75em;
+}
+.statistics-section-content-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+.statics-select-datetime-after {
+    flex-grow: 1;
+}
+.statics-select-datetime-header p{
+    font-size: 1.2em;
+    margin-block: .4em;
+}
+.statics-before-button-group input {
+    padding: .75em;
+    background-color: var(--input-bg);
+}
+.statistics-section-content-graph {
+    background-color: var(--main-elem-bg-color);
+    flex-grow: 1;
+}
+
+/*-----------------------------------------------------
+------------------------SETTING-----------------------
+-----------------------------------------------------*/
+.setting-option-darkmode {
+    display: inline-block;
+    padding: .25em 1em;
+    border: 1px solid black;
+}
+.setting-option-darkmode span {
+    line-height: 160%;
+}
+.setting-option-darkmode input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+/*-------------------------POP UP------------------------*/
+.pop-up-add {
+    position: fixed;
+    display: none;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    backdrop-filter: blur(2px) brightness(40%);
+}
+.pop-opened {
+    display: block;
+}
+.pop-up-add-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(calc(100% - 2em), 600px);
+    background-color: var(--main-elem-bg-color);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2), 0px 0px 20px rgba(0, 0, 0, 0.19);
+}
+.add-top {
+    padding-inline: 1em;
+    background-color: gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--bg-color);
+}
+.add-header {
+    padding-block: 1em;
+}
+.add-header h3 {
+    font-size: 1.4em;
+    font-weight: bolder;
+}
+.add-button-leave button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    line-height: 100%;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--bg-color);
+    padding: .4em;
+}
+.add-content {
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+.add-content > * {
+    margin-block: 2em;
+}
+.add-header-btn {
+    margin-bottom: 1em;
+}
+.add-button-groups {
+    display: flex;
+    align-items: center;
+}
+.add-button-hours, .add-button-minutes {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.add-dots {
+   padding-inline: .4em;
+   font-size: 1.3em;
+}
+.add-button-more button, .add-button-less button {
+
+}
+:where(.add-button-more, .add-button-less) button{
+    padding: 1em;
+    background-color: transparent;
+    color: blue;
+    border: none;
+    outline: none;
+}
+:where(.add-button-more, .add-button-less) button:hover {
+    box-shadow: 0px 0px 4px 2px rgba(0, 0, 255, 0.2);
+}
+.add-input input {
+    padding-block: .5em;
+    margin-block: .2em;
+    width: 80px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bolder;
+    background-color: var(--input-bg);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.pop-up-add-button {
+    display: flex;
+    justify-content: flex-end;
+    margin: 2em;
+}
+.pop-up-add-button button {
+    width: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+

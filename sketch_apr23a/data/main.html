@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/clear.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/variables.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>ESP Web Server</title>
+</head>
+<body class=""> <!--black-theme-->
+    <nav class="topnav">
+        <h1>Boiler Schedule</h1>
+    </nav>
+    <section class="main-section centering">
+        <section class="main-section-tabs">
+            <button class="tablinks active" onclick="openTab(event, 'Schedule')">Schedule</button>  <!--!!!!!!!!!!!!!!!!!!!!!-->
+            <button class="tablinks" onclick="openTab(event, 'Graphs')">Statistics</button>
+            <button class="tablinks" onclick="openTab(event, 'Settings')">Settings</button>
+        </section>
+        <section id="Schedule" class="tabcontent schedule-section" style="display: block;">         <!--!!!!!!!!!!!!!!!!!!!!!-->
+            <section class="schedule-section-content">
+                <section class="schedule-section-content-button-group">
+                    <button type="button" onclick="popUpActivation()" class="custom-buttons customed-btn-lime">Add</button>
+                    <button type="button" onclick="deleteAllSchedule()" class="custom-buttons customed-btn-tomato">Clear All</button>
+                    <label>
+                        <input type="checkbox" id="manualControlCheckbox" name="manualControlCheckbox">
+                        ON/OFF
+                    </label>
+                    <section class="schedule-current-time">
+                        Time:
+                        <span class="time-hours"></span>
+                        :
+                        <span class="time-minutes"></span>
+                    </section>
+                </section>
+                <section class="schedule-section-content-status">
+                    <p>Boiler status: <span id="boiler-status">On</span></p>
+                </section>
+                <section class="schedule-section-content-dates-group">
+                    <section class="dates-group-wrapper">
+                        <!--Тестовий 2-->
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section id="Graphs" class="tabcontent statistics-section">
+            <section class="statistics-section-content">
+                <form class="statistics-section-content-buttons" action="" method="get">
+                    <section class="statics-select-datetime-before">
+                        <header class="statics-select-datetime-header">
+                            <p>Select time from:</p>
+                        </header>
+                        <section class="statics-before-button-group">
+                            <input type="date" name="statsdateafter" id="statsdateafter">
+                            <input type="time" name="statstimeafter" id="statstimeafter">
+                        </section>
+                    </section>
+                    <section class="statics-select-datetime-after">
+                        <header class="statics-select-datetime-header">
+                            <p>Select time to:</p>
+                        </header>
+                        <section class="statics-before-button-group">
+                            <input type="date" name="statsdatebefore" id="statsdatebefore">
+                            <input type="time" name="statstimebefore" id="statstimebefore">
+                        </section>
+                    </section>
+                    <section class="statics-button-submit">
+                        <button type="submit" class="custom-buttons customed-btn-lightblue fullwidthed">Check Stats</button>
+                    </section>
+                </form>
+                <section class="statistics-section-content-graph" id="logChart">
+
+                </section>
+            </section>
+        </section>
+        <section id="Settings" class="tabcontent settings-section">
+            <section class="settings-section-content">
+                <div class="black-version">
+                    <label for="darkmode" class="setting-option-darkmode">
+                        <span>Switch to darkmode:</span>
+                        <input type="checkbox" name="darkmode" id="darkmode">
+                    </label>
+                </div>
+            </section>
+        </section>
+    </section>
+
+
+
+    <section class="pop-up-add">
+        <section class="pop-up-add-content">
+            <section class="add-top">
+                <header class="add-header">
+                    <h3>Add Date</h3>
+                </header>
+                <section class="add-button-leave">
+                    <button type="button" onclick="popUpActivation()"><i class="fa-solid fa-xmark"></i></button>
+                </section>
+            </section>
+            <section class="add-content">
+                <section class="add-content-before">
+                    <header class="add-header-btn">
+                        <h4>Set time before:</h4>
+                    </header>
+                    <section class="add-button-groups">
+                        <section class="add-button-hours">
+                            <section class="add-button-more">
+                                <button type="button" onclick="changeTime('uhourbefore', 1, 0, 23)">
+                                    <i class="fa-solid fa-chevron-up"></i>
+                                </button>
+                            </section>
+                            <section class="add-input">
+                                <input type="number" name="uhourbefore" id="uhourbefore" min="0" max="23">
+                            </section>
+                            <section class="add-button-less">
+                                <button type="button" onclick="changeTime('uhourbefore', -1, 0, 23)">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                            </section>
+                        </section>
+                        <section class="add-dots">:</section>
+                        <section class="add-button-minutes">
+                            <section class="add-button-more">
+                                <button type="button" onclick="changeTime('uminutebefore', 1, 0, 59)">
+                                    <i class="fa-solid fa-chevron-up"></i>
+                                </button>
+                            </section>
+                            <section class="add-input">
+                                <input type="number" name="uminutebefore" id="uminutebefore" min="0" max="59">
+                            </section>
+                            <section class="add-button-less">
+                                <button type="button" onclick="changeTime('uminutebefore', -1, 0, 59)">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+                <section class="add-content-after">
+                    <header class="add-header-btn">
+                        <h4>Set time after:</h4>
+                    </header>
+                    <section class="add-button-groups">
+                        <section class="add-button-hours">
+                            <section class="add-button-more">
+                                <button type="button" onclick="changeTime('uhourafter', 1, 0, 23)">
+                                    <i class="fa-solid fa-chevron-up"></i>
+                                </button>
+                            </section>
+                            <section class="add-input">
+                                <input type="number" name="uhourafter" id="uhourafter" min="0" max="23">
+                            </section>
+                            <section class="add-button-less">
+                                <button type="button" onclick="changeTime('uhourafter', -1, 0, 23)">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                            </section>
+                        </section>
+                        <section class="add-dots">:</section>
+                        <section class="add-button-minutes">
+                            <section class="add-button-more">
+                                <button type="button" onclick="changeTime('uminuteafter', 1, 0, 59)">
+                                    <i class="fa-solid fa-chevron-up"></i>
+                                </button>
+                            </section>
+                            <section class="add-input">
+                                <input type="number" name="uminuteafter" id="uminuteafter" min="0" max="59">
+                            </section>
+                            <section class="add-button-less">
+                                <button type="button" onclick="changeTime('uminuteafter', -1, 0, 59)">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="pop-up-add-button">
+                <button type="button" onclick="addSchedule()"><i class="fa-solid fa-plus"></i></button>
+            </section>
+        </section>
+    </section>
+    <script src="javascript/index.js"></script>
+    <script src="javascript/pagefunctions.js"></script>
+    <script src="javascript/timer.js"></script>
+    <script src="https://kit.fontawesome.com/fb9e963272.js" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!--
+    <div class="topnav">
+        <h1>ESP WebSocket Server</h1>
+    </div>
+    <div class="content">
+        <div class="card">
+            <h2>Output - GPIO 2</h2>
+            <p class="state">state: <span id="state">%STATE%</span></p>
+            <p><button id="button" class="button">Toggle</button></p>
+        </div>
+    </div>
+-->
+
+
+<!--
+Тестовий 2
+
+
+                        <section class="date-setted1">
+                            <section class="date-setted-content-switch">
+                                <label for="ucheck1" class="switch">
+                                    <input type="checkbox" hidden id="ucheck1" name="ucheck1">
+                                    <span class="switch-button"></span>
+                                </label>
+                            </section>
+                            <section class="date-setted-content-time">
+                                <div class="time-before">
+                                    <span class="time-before-hours">14</span>
+                                    <span class="time-before-minutes">40</span>
+                                </div>
+                                <div class="time-dots">:</div>
+                                <div class="time-after">
+                                    <span class="time-after-hours">15</span>
+                                    <span class="time-after-minutes">00</span>
+                                </div>
+                            </section>
+                            <section class="date-setted-delete-button">
+                                <button type="button" onclick=""><i class="fa-solid fa-minus"></i></button>
+                            </section>
+                        </section>
+                        <section class="date-setted2">
+                            <section class="date-setted-content-switch">
+                                <label for="ucheck2" class="switch">
+                                    <input type="checkbox" hidden id="ucheck2" name="ucheck1">
+                                    <span class="switch-button"></span>
+                                </label>
+                            </section>
+                            <section class="date-setted-content-time">
+                                <div class="time-before">
+                                    <span class="time-before-hours">18</span>
+                                    <span class="time-before-minutes">40</span>
+                                </div>
+                                <div class="time-dots">:</div>
+                                <div class="time-after">
+                                    <span class="time-after-hours">22</span>
+                                    <span class="time-after-minutes">00</span>
+                                </div>
+                            </section>
+                            <section class="date-setted-delete-button">
+                                <button type="button" onclick=""><i class="fa-solid fa-minus"></i></button>
+                            </section>
+                        </section>
+-->

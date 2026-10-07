@@ -1,0 +1,17 @@
+:root {
+    --bg-color: aliceblue;
+    --nav-bg-color: #33829f;
+    --color-header: white;
+    --color-text: black;
+    --main-elem-bg-color: #f1f1f1;
+    --input-bg: aliceblue;
+    --switcher-height: 30px;
+}
+
+.black-theme {
+    --bg-color: rgb(36, 36, 36);
+    --nav-bg-color: #143642;
+    --color-text: white;
+    --input-bg: rgb(167, 167, 167);
+    --main-elem-bg-color: rgb(105, 105, 105);
+}
